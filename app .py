@@ -2549,7 +2549,7 @@ with open(comic_file, "r", encoding="utf-8") as f:
 
 with demo:
     with gr.Tab("🏰 Теңдеулер патшалығы"):
-        gr.HTML(equation_kingdom_html))
+        gr.HTML(equation_kingdom_html)
 demo.queue()
 demo.launch(
     server_name="0.0.0.0",
