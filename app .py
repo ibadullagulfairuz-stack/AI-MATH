@@ -2539,6 +2539,17 @@ with gr.Blocks(css=CSS,title=APP_NAME,theme=gr.themes.Soft(),head=NO_TRANSLATE_H
     refresh_btn.click(class_summary,None,class_df).then(student_summary,None,student_df).then(level_chart,None,level_plot)
     teacher_auto_refresh.tick(class_summary,None,class_df,show_progress="hidden").then(student_summary,None,student_df,show_progress="hidden").then(level_chart,None,level_plot,show_progress="hidden")
 
+# ===== ТЕҢДЕУЛЕР ПАТШАЛЫҒЫ =====
+import pathlib
+
+comic_file = pathlib.Path(__file__).parent / "equation_kingdom.html"
+
+with open(comic_file, "r", encoding="utf-8") as f:
+    equation_kingdom_html = f.read()
+
+with demo:
+    with gr.Tab("🏰 Теңдеулер патшалығы"):
+        gr.HTML(equation_kingdom_html))
 demo.queue()
 demo.launch(
     server_name="0.0.0.0",
