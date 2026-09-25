@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Теңдеулер патшалығы — цифрлық комикс</title>
+<style>
+:root{--ink:#17315f;--blue:#2196f3;--sky:#eaf8ff;--violet:#8b45e8;--orange:#ff9f1c;--green:#20c96b;--cream:#fffaf0;--ok:#12b85a;--bad:#e84d68}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;min-height:100vh;background:linear-gradient(#bcecff 0,#eafaff 38%,#fff5d8 100%)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.55;background:
+radial-gradient(circle at 8% 12%,#fff 0 32px,transparent 34px),
+radial-gradient(circle at 78% 8%,#fff 0 42px,transparent 44px),
+radial-gradient(circle at 35% 22%,#fff 0 22px,transparent 24px);
+background-size:520px 220px,700px 280px,620px 250px}
+.app{max-width:1500px;margin:auto;padding:14px;position:relative}
+.top{position:sticky;top:6px;z-index:30;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px;border:2px solid #8bcfff;border-radius:22px;background:#fffffff2;box-shadow:0 8px 22px #4084b92e}
+.stat{padding:9px 14px;border-radius:15px;background:linear-gradient(#fff,#eef8ff);border:1px solid #b8dcff;font-weight:900;box-shadow:0 4px 10px #4372a31c}
+.btn{border:0;border-radius:15px;padding:12px 19px;margin:5px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(#54c7ff,#168ce7);box-shadow:0 5px 0 #0871bd,0 7px 15px #2a8bd33b;transition:.18s}
+.btn:hover{filter:brightness(1.05);transform:translateY(-2px)}.btn.gold{background:linear-gradient(#ffce58,#ff9418);box-shadow:0 5px 0 #d36c00,0 8px 16px #e68a2638;color:#fff}.btn:disabled{filter:grayscale(.8);opacity:.5;cursor:not-allowed}
+.cover{min-height:88vh;display:grid;place-items:center;text-align:center}
+.coverbox{width:min(1160px,100%);padding:42px;border:5px solid #fff;border-radius:38px;background:linear-gradient(145deg,#ffffffee,#e6f7ffed 55%,#fff3cfee);box-shadow:0 0 0 3px #64bdf2,0 20px 50px #397cbf38;position:relative;overflow:hidden}
+.coverbox:after{content:"🏰";position:absolute;right:3%;bottom:-30px;font-size:190px;opacity:.15}
+.castle{font-size:92px;filter:drop-shadow(0 8px 8px #5292bf44)}
+h1{font-family:Georgia,serif;font-size:clamp(45px,7vw,86px);margin:8px;color:#193b7a;text-shadow:3px 3px 0 #fff,5px 5px 0 #ffc85b}
+.subtitle{font-size:clamp(20px,3vw,33px);color:#733ac1;font-weight:900}
+.comic{display:none}.comic.show{display:block}.chapterHead{text-align:center;margin:24px 0}
+.chapterHead h2{display:inline-block;margin:7px;padding:13px 34px;border-radius:18px;background:linear-gradient(90deg,#ffb22e,#ff7e3c,#9b50e9);color:#fff;font-family:Georgia,serif;font-size:38px;box-shadow:0 7px 0 #b95064,0 10px 20px #7a55a32e}
+#chapterNo{font-weight:900;color:#2469b2}
+.frame{position:relative;min-height:560px;margin:20px 0;padding:24px;border:5px solid #fff;border-radius:28px;overflow:hidden;background:linear-gradient(155deg,#e7f8ff,#fff9df 48%,#f3e9ff);box-shadow:0 0 0 3px #65baf0,0 18px 40px #3574a72e}
+.scene{position:absolute;inset:0;opacity:.16;font-size:clamp(150px,27vw,350px);display:grid;place-items:center;filter:drop-shadow(0 8px 8px #599fd266)}
+.panelContent{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.5fr;gap:25px;align-items:center;min-height:500px}
+.character{font-size:clamp(110px,19vw,255px);text-align:center;filter:drop-shadow(0 12px 9px #5275a84d)}
+.bubble{position:relative;padding:25px;border-radius:32px;background:#fff;color:#26355b;border:4px solid #364a7b;font-family:Georgia,serif;font-size:clamp(18px,2vw,27px);line-height:1.45;box-shadow:0 8px 0 #b9d6ec,0 12px 25px #6c94b32b}
+.bubble:after{content:"";position:absolute;left:-34px;bottom:48px;border-width:19px 36px 19px 0;border-style:solid;border-color:transparent #364a7b transparent transparent}
+.narrator{margin:17px auto;padding:15px 20px;max-width:900px;border:2px solid #ffb85b;background:#fff4ce;color:#60431b;font-family:Georgia,serif;border-radius:16px;text-align:center;box-shadow:0 5px 12px #c9822530}
+.challenge{position:relative;z-index:3;max-width:1050px;margin:auto;padding:26px;border:3px solid #fff;border-radius:25px;background:#fffffff2;box-shadow:0 0 0 3px #a967e8,0 16px 35px #7650a72b}
+.challenge h3{margin:-26px -26px 18px;padding:15px;border-radius:22px 22px 0 0;background:linear-gradient(90deg,#ff9c28,#a94ce9);color:#fff;text-align:center;font-size:28px}
+.eq{text-align:center;font-family:"Cambria Math",Georgia,serif;font-size:38px;color:#153a79;background:#eaf6ff;border:2px solid #9cd4ff;border-radius:16px;padding:15px;margin:18px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.choice{padding:15px;border-radius:15px;border:2px solid #bad8f5;background:linear-gradient(#fff,#edf6ff);color:#203866;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #bad3ea}
+.choice:hover{background:#dff3ff;border-color:#58b7f1}
+.feedback{text-align:center;min-height:35px;font-weight:900;margin:13px}
+.hint,.solution{display:none;margin:12px auto;padding:16px;border-radius:16px;line-height:1.6;color:#26365b}
+.hint{background:#fff0f5;border:2px solid #ffabc5}.solution{background:#eaf7ff;border:2px solid #86c9f5}
+.input{display:block;margin:10px auto;width:min(330px,90%);padding:14px;border:2px solid #6abff2;border-radius:14px;background:#fff;color:#203866;text-align:center;font-size:20px;box-shadow:inset 0 2px 6px #6f9ec326}
+.nav{text-align:center;margin:18px}.crystal{font-size:90px;text-align:center;filter:drop-shadow(0 7px 12px #6c54df66);animation:pulse 1.3s infinite alternate}
+@keyframes pulse{to{transform:scale(1.09) rotate(3deg)}}
+.modal{display:none;position:fixed;z-index:60;inset:0;background:#5b87aa7a;padding:25px;overflow:auto;backdrop-filter:blur(7px)}
+.modal.open{display:grid;place-items:center}.modalbox{width:min(980px,100%);padding:28px;border-radius:28px;background:#fff;border:4px solid #83caff;box-shadow:0 22px 70px #274c704c;color:#25375e}
+.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.chCard{padding:19px;text-align:center;border:2px solid #a8d8f8;border-radius:20px;background:linear-gradient(#fff,#eef8ff);box-shadow:0 6px 15px #5981a322}
+.locked{filter:grayscale(.75);opacity:.58}.final{text-align:center;padding:40px}.final .cup{font-size:115px;filter:drop-shadow(0 8px 10px #e2a21f66)}
+@media(max-width:720px){.panelContent{grid-template-columns:1fr}.frame{min-height:690px}.bubble:after{display:none}.character{font-size:135px}.app{padding:8px}.chapterHead h2{font-size:28px}.top{position:relative}}
+</style></head>
+<body><div class="app">
+<div class="top" id="topbar">
+<span class="stat">📖 Тарау: <b id="chapStat">0/5</b></span><span class="stat">💎 Кристалл: <b id="crystals">0/5</b></span><span class="stat">⭐ <b id="stars">0</b></span><span class="stat">🎯 <b id="correct">0</b></span><span class="stat">💡 <b id="hints">0</b></span>
+<button class="btn" onclick="openModal('chapters')">📚 Тараулар</button><button class="btn" onclick="openModal('teacher')">🎙 Оқиғаны бастау</button><button class="btn" onclick="openModal('jury')">👑 Қазыларға</button>
+</div>
+
+<section class="cover" id="cover"><div class="coverbox"><div class="castle">🏰 💎 ✨</div><div style="color:#2773b8;font-weight:900">6-СЫНЫП • МАТЕМАТИКА</div><h1>ТЕҢДЕУЛЕР ПАТШАЛЫҒЫ</h1><div class="subtitle">«Формуладан — ертегіге» интерактивті цифрлық комикс</div><p>Теңдік кристалының 5 бөлігін жинап, патшалықтағы тепе-теңдікті қалпына келтір!</p><button class="btn gold" onclick="start()">📖 КОМИКСТІ БАСТАУ</button></div></section>
+
+<section class="comic" id="comic"><div class="chapterHead"><div id="chapterNo"></div><h2 id="chapterTitle"></h2></div><div id="stage"></div><div class="nav"><button class="btn" id="prevBtn" onclick="prev()">← Алдыңғы кадр</button><button class="btn gold" id="nextBtn" onclick="next()">Келесі кадр →</button></div></section>
+</div>
+
+<div class="modal" id="chapters"><div class="modalbox"><button class="btn" style="float:right" onclick="closeModal('chapters')">✕</button><h2>📚 Комикс тараулары</h2><div class="chapterGrid" id="chapterCards"></div></div></div>
+<div class="modal" id="teacher"><div class="modalbox"><button class="btn" style="float:right" onclick="closeModal('teacher')">✕</button><h2>🎙 Мұғалімге 3 минуттық кіріспе</h2><p style="line-height:1.7">Балалар, бүгін қолымызға жай ғана есептер жинағын алмаймыз. Бүгін біз тірі комикстің ішіне кіреміз. Алыстағы Теңдеулер патшалығында ғасырлар бойы бір қасиетті заң сақталған: теңдіктің екі жағы әрқашан тепе-тең болуы керек. Бірақ бүгін Теңдік кристалы жарылып, оның бес бөлігі патшалықтың әр аймағына шашырап кетті. Сол сәттен бастап Белгісіз өзінің мәнін жоғалтты, Коэффициент күшін басқара алмай қалды, ал Тұрақты сан өз орнынан адасты.<br><br>Сендер бүгін осы оқиғаның көрермені ғана болмайсыңдар. Әрқайсың — Жас математиксіңдер. Комикстегі кейіпкерлер кей сәтте сендерден көмек сұрайды. Сонда оқиға тоқтайды. Теңдеуді шешпей, қатені таппай немесе дұрыс амалды таңдамай келесі кадр ашылмайды.<br><br>Ең маңызды заңды ұмытпаңдар: теңдеу — таразы сияқты. Бір жағына қандай амал қолдансақ, тепе-теңдікті сақтау үшін екінші жағына да дәл сондай амал қолданамыз. Қиналсаңдар, Көмекші нұсқау бағыт береді, бірақ жауапты бірден айтпайды. Ал толық шешім арқылы өз ойларыңды тексере аласыңдар.<br><br>Бес тараудан өтіп, бес кристалды жинай алсақ, Теңдеулер патшалығы қайта жарықтанады. Дайын болсаңдар, комикстің бірінші бетін ашайық!</p></div></div>
+<div class="modal" id="jury"><div class="modalbox"><button class="btn" style="float:right" onclick="closeModal('jury')">✕</button><h2>👑 Мұғалімге / Қазыларға</h2><div class="chapterGrid"><div class="chCard"><b>❓ Белгісіз</b><p>x — мәнін іздейтін кейіпкер.</p></div><div class="chCard"><b>⚖️ Теңдік</b><p>Таразы метафорасы екі жаққа бірдей амал қолдануды түсіндіреді.</p></div><div class="chCard"><b>🛡 Коэффициент</b><p>x-тің неше есе алынғанын көрсетеді.</p></div><div class="chCard"><b>💎 Тұрақты сан</b><p>x жоқ, мәні өзгермейтін сан.</p></div><div class="chCard"><b>🎯 3 тапсырма түрі</b><p>Қарапайым, жақшалы және мәтіндік теңдеулер.</p></div><div class="chCard"><b>💻 Автотексеру</b><p>Жауаптар JavaScript логикасымен тексеріледі, толық шешімде орнына қою көрсетіледі.</p></div></div></div></div>
+
+<script>
+const chapters=[
+{title:"Теңдіктің жоғалуы",scene:"🏰",frames:[
+ {char:"⚖️",text:"Теңдеулер патшалығында ғасырлар бойы бір ғана заң үстемдік етті — ТЕҢДІК.",n:"Бірақ сол түні сарай үстіндегі Теңдік кристалы кенет дірілдей бастады..."},
+ {char:"💥💎",text:"Тоқта! Тепе-теңдік бұзылып барады!",n:"Кристалл бес бөлікке бөлініп, патшалықтың түкпір-түкпіріне ұшып кетті."},
+ {char:"❓",text:"Мен... мен кіммін? Менің мәнім қандай? Жас математик, маған көмектес!",n:"Алғашқы кристалл үш математикалық сынақтың ар жағында еді."}
+],tasks:[
+ {kind:"choice",title:"Таразыны теңестір",eq:"x + 5 = 13",prompt:"x-ті жалғыз қалдыру үшін теңдеудің ЕКІ жағында не істеу керек?",options:["5 қосу","5 азайту","13 азайту"],answer:1,hint:"x жанындағы +5-ке кері амалды ойла.",solution:["Екі жақтан да 5-ті азайтамыз.","x+5−5=13−5","x=8","Тексеру: 8+5=13 → 13=13 ✓"]},
+ {kind:"choice",title:"Қатені тап",eq:"x+7=19 → x+7−7=19 → x=19",prompt:"Қандай қате жіберілді?",options:["x-ті өшіруге болмайды","Амалды екі жаққа да қолдану керек","7-ні қосу керек"],answer:1,hint:"Теңдік таразы екенін есіңе түсір.",solution:["Дұрысы: x+7−7=19−7","x=12","Тексеру: 12+7=19 ✓"]},
+ {kind:"choice",title:"Жоғалған амал",eq:"x − 9 ___ 9 = 6 ___ 9",prompt:"Екі бос орынға бірдей қандай амал қойылады?",options:["+","−","×"],answer:0,hint:"−9-ды жою үшін кері амалды қолдан.",solution:["x−9+9=6+9","x=15","Тексеру: 15−9=6 ✓"]}
+]},
+{title:"Коэффициенттің күші",scene:"🌲",frames:[
+ {char:"🛡️",text:"Мен — Коэффициентпін. Бірақ күшім бақылаудан шығып кетті!",n:"Сиқырлы орманда x таңбалары бірнеше еселеніп кетті."},
+ {char:"❓",text:"Егер сен мені бірнеше есе көбейтсең, мені қалай қайта жалғыз қалдырамыз?",n:"Жас математикке екінші кристалды алу үшін үш сынақ берілді."}
+],tasks:[
+ {kind:"choice",title:"Кім коэффициент?",eq:"5x + 7 = 32",prompt:"Коэффициентті таңда.",options:["5","7","32","x"],answer:0,hint:"Коэффициент x-тің алдында тұрады.",solution:["5x өрнегінде коэффициент — 5."]},
+ {kind:"choice",title:"Сиқырлы бөлу",eq:"4x = 28",prompt:"x-ті жалғыз қалдыру үшін не істейміз?",options:["Екі жақты 2-ге бөлеміз","Екі жақты 4-ке бөлеміз","4 қосамыз","4 азайтамыз"],answer:1,hint:"4x — x-тің төрт есесі.",solution:["4x÷4=28÷4","x=7","Тексеру: 4·7=28 ✓"]},
+ {kind:"order",title:"Қадамдарды ретте",eq:"3x + 6 = 27",prompt:"Қадамдардың дұрыс ретін 1-2-3 түрінде енгіз.",items:["① 3x+6−6=27−6","② 3x=21","③ x=7"],answer:"123",hint:"Алдымен +6-ны жой, содан кейін 3-ке бөл.",solution:["3x+6−6=27−6","3x=21","x=7","Тексеру: 3·7+6=27 ✓"]}
+]},
+{title:"Жақшалар лабиринті",scene:"💎",frames:[
+ {char:"🌀",text:"Жақшалар лабиринтіне қош келдіңдер. Мұнда әр бұрылыс — жаңа амал!",n:"Қабырғаларда жұмбақ теңдеулер жарқырады."},
+ {char:"🛡️❓",text:"Бізге жақшаның сырын ашуға көмектес!",n:"Үшінші кристалл лабиринттің ортасында тұр."}
+],tasks:[
+ {kind:"choice",title:"Екі дұрыс жол",eq:"2(x + 4) = 20",prompt:"Қай әрекет дұрыс бастама?",options:["Екі жақты 2-ге бөлу","2-ні тек сол жақтан алып тастау","20-ға 4 қосу"],answer:0,hint:"Теңдіктің екі жағына бірдей амал жаса.",solution:["2(x+4)=20","x+4=10","x=6","Тексеру: 2(6+4)=20 ✓"]},
+ {kind:"choice",title:"Дұрыс жақшаны аш",eq:"3(x − 2)",prompt:"Дұрыс өрнекті таңда.",options:["3x−2","3x−6","3x+6"],answer:1,hint:"3 санын жақша ішіндегі әр мүшеге көбейт.",solution:["3·x + 3·(−2) = 3x−6"]},
+ {kind:"number",title:"Лабиринт теңдеуі",eq:"3(x − 2) + 4 = 19",prompt:"x мәнін енгіз.",answer:7,hint:"Жақшаны аш: 3x−6+4=19.",solution:["3x−6+4=19","3x−2=19","3x=21","x=7","Тексеру: 3(7−2)+4=19 ✓"]}
+]},
+{title:"Өмірлік есептер қаласы",scene:"🏙️",frames:[
+ {char:"🧙‍♀️",text:"Біздің қалада есептер теңдеу түрінде жасырылған. Оларды оқи білсең ғана жол ашылады!",n:"Жас математик енді теңдеуді дайын күйінде емес, жағдаяттан өзі тануы керек."},
+ {char:"💎",text:"Төртінші кристалл қала тұрғындарына көмектескен адамға беріледі.",n:"Үш өмірлік мәселе алдыңнан шықты."}
+],tasks:[
+ {kind:"choice",title:"Кристалл дүкені",eq:"Айшаға 7 кристалл сыйлағаннан кейін, онда 19 кристалл болды.",prompt:"Дұрыс теңдеуді таңда.",options:["x+7=19","x−7=19","7x=19"],answer:0,hint:"Бастапқы сан — x. Оған 7 қосылды.",solution:["x+7=19","x=12","Тексеру: 12+7=19 ✓"]},
+ {kind:"number",title:"Сиқырлы қаптар",eq:"4 бірдей қапта барлығы 36 монета.",prompt:"Бір қаптағы монета санын тап.",answer:9,hint:"4x=36 теңдеуін құр.",solution:["4x=36","x=9","Тексеру: 4·9=36 ✓"]},
+ {kind:"number",title:"Саяхат жолы",eq:"Саяхатшы 8 км жүрді, оған тағы 17 км қалды.",prompt:"Жолдың жалпы ұзындығын тап.",answer:25,hint:"Жалпы жолдан жүрген 8 км-ді алғанда 17 км қалады: x−8=17.",solution:["x−8=17","x=25","Тексеру: 25−8=17 ✓"]}
+]},
+{title:"Теңдікті құтқару",scene:"👑",frames:[
+ {char:"⚖️",text:"Жас математик... соңғы кристалды тек шын Теңдеу сақшысы ғана таба алады.",n:"Сарай қараңғы еді. Соңғы үш сынақ басталды."},
+ {char:"❓🛡️",text:"Біз саған сенеміз! Теңдікті қайта қалпына келтір!",n:"Барлық кейіпкер финалдық шешімді күтті."}
+],tasks:[
+ {kind:"choice",title:"Дұрыс па, бұрыс па?",eq:"2x + 4 = 18,  x = 7",prompt:"x=7 шешімі дұрыс па?",options:["Дұрыс","Бұрыс"],answer:0,hint:"7-ні x орнына қой.",solution:["2·7+4=18","18=18 ✓","Демек, x=7 — дұрыс шешім."]},
+ {kind:"choice",title:"Қай шешім дұрыс?",eq:"2(x + 3) = 16",prompt:"Дұрыс шешімді таңда.",options:["x+3=8 → x=5","2x+3=16 → x=6,5"],answer:0,hint:"Екі жақты алдымен 2-ге бөлуге болады.",solution:["2(x+3)=16","x+3=8","x=5","Тексеру: 2(5+3)=16 ✓"]},
+ {kind:"number",title:"Финалдық теңдеу",eq:"4(x − 2) + 6 = 30",prompt:"x мәнін тап.",answer:8,hint:"Жақшаны аш немесе алдымен екі жақтан 6-ны азайт.",solution:["4(x−2)+6=30","4(x−2)=24","x−2=6","x=8","Тексеру: 4(8−2)+6=30 → 30=30 ✓"]}
+]}];
+
+let c=0,step=0,phase="frames",taskIndex=0,stars=0,correct=0,hints=0,crystals=0,unlocked=0,done={};
+chapters.forEach((x,i)=>done[i]=new Set());
+
+function start(){document.getElementById("cover").style.display="none";document.getElementById("comic").classList.add("show");c=0;step=0;phase="frames";render()}
+function render(){
+ let ch=chapters[c];document.getElementById("chapterNo").textContent=`ТАРАУ ${c+1} / 5`;document.getElementById("chapterTitle").textContent=ch.title;document.getElementById("chapStat").textContent=`${c+1}/5`;
+ if(phase==="frames"){let f=ch.frames[step];document.getElementById("stage").innerHTML=`<div class="frame"><div class="scene">${ch.scene}</div><div class="panelContent"><div class="character">${f.char}</div><div><div class="bubble">${f.text}</div><div class="narrator">${f.n}</div></div></div></div>`}
+ else if(phase==="tasks"){renderTask()}
+ else renderCrystal();
+ document.getElementById("prevBtn").disabled=(phase!=="frames"||step===0);document.getElementById("nextBtn").style.display=phase==="frames"?"inline-block":"none";renderChapterCards()
+}
+function next(){let ch=chapters[c];if(step<ch.frames.length-1){step++;render()}else{phase="tasks";taskIndex=0;render()}}
+function prev(){if(step>0){step--;render()}}
+function renderTask(){
+ let t=chapters[c].tasks[taskIndex],doneNow=done[c].has(taskIndex);
+ let interaction=t.kind==="number"||t.kind==="order"?`<input class="input" id="answerInput" placeholder="${t.kind==="order"?'Мысалы: 123':'x мәнін енгіз'}"><button class="btn gold" onclick="checkInput()">✓ Тексеру</button>`:
+ `<div class="choices">${t.options.map((o,i)=>`<button class="choice" onclick="checkChoice(${i})">${o}</button>`).join("")}</div>`;
+ document.getElementById("stage").innerHTML=`<div class="frame"><div class="scene">${chapters[c].scene}</div><div class="challenge"><h3>🎯 ${taskIndex+1}-тапсырма — ${t.title}</h3><div class="eq">${t.eq}</div><p style="text-align:center;font-size:19px">${t.prompt}</p>${interaction}<div class="feedback" id="feedback">${doneNow?"✓ Бұл тапсырма орындалған.":""}</div><div style="text-align:center"><button class="btn" onclick="hint()">💡 Көмекші нұсқау</button><button class="btn" onclick="solution()">📖 Толық шешім</button></div><div class="hint" id="hintBox">${t.hint}</div><div class="solution" id="solBox"><b>Толық шешім:</b><br>${t.solution.join("<br>")}<br><b style="color:var(--ok)">⚖️ Теңдік сақталды!</b></div></div></div>`;
+}
+function pass(){
+ let f=document.getElementById("feedback");f.style.color="var(--ok)";f.innerHTML="✨ Дұрыс! Комикстегі кедергі жойылды!";
+ if(!done[c].has(taskIndex)){done[c].add(taskIndex);stars++;correct++;update()}
+ setTimeout(()=>{if(taskIndex<2){taskIndex++;render()}else{phase="crystal";render()}},700)
+}
+function fail(){let f=document.getElementById("feedback");f.style.color="var(--bad)";f.innerHTML="🔮 Әзірге дұрыс емес. Теңдікті қайта тексер немесе көмекші нұсқауды пайдалан."}
+function checkChoice(i){i===chapters[c].tasks[taskIndex].answer?pass():fail()}
+function checkInput(){let t=chapters[c].tasks[taskIndex],v=document.getElementById("answerInput").value.trim().replace(",",".");if(t.kind==="number"){Number(v)===t.answer?pass():fail()}else{v.replace(/\D/g,"")===t.answer?pass():fail()}}
+function hint(){hints++;document.getElementById("hints").textContent=hints;document.getElementById("hintBox").style.display="block"}
+function solution(){document.getElementById("solBox").style.display="block"}
+function renderCrystal(){
+ document.getElementById("stage").innerHTML=`<div class="frame"><div class="panelContent" style="grid-template-columns:1fr"><div><div class="crystal">💎</div><h2 style="text-align:center;color:#ffd65d">КРИСТАЛДЫҢ ${c+1}-БӨЛІГІ ТАБЫЛДЫ!</h2><div class="bubble" style="max-width:760px;margin:auto;text-align:center">${c<4?"Керемет! Комикстің келесі тарауы ашылды.":"Бес кристалл да жиналды. Теңдік кристалы қайта бірігуде!"}</div><div style="text-align:center;margin-top:25px"><button class="btn gold" onclick="finishChapter()">${c<4?"Келесі тарау →":"Финалды ашу 🏆"}</button></div></div></div></div>`;
+}
+function finishChapter(){
+ if(crystals<c+1){crystals=c+1;document.getElementById("crystals").textContent=`${crystals}/5`;stars+=2;update()}
+ unlocked=Math.max(unlocked,Math.min(c+1,4));
+ if(c<4){c++;step=0;phase="frames";render()}else finalScene()
+}
+function finalScene(){
+ document.getElementById("chapterNo").textContent="ФИНАЛ";document.getElementById("chapterTitle").textContent="Теңдік қайта оралды!";
+ document.getElementById("stage").innerHTML=`<div class="frame"><div class="scene">🏰✨</div><div class="final"><div class="cup">🏆</div><h2 style="color:#ffd65d;font-size:40px">ТЕҢДЕУЛЕР ПАТШАЛЫҒЫ ҚҰТҚАРЫЛДЫ!</h2><p style="font-size:22px">⚖️ «Тепе-теңдік қалпына келді!»</p><p style="font-size:22px">❓ «Мен өз мәнімді табуды үйрендім!»</p><h3>СЕН ТЕҢДЕУЛЕР ПАТШАЛЫҒЫНЫҢ БАС САҚШЫСЫ АТАНДЫҢ!</h3><p>⭐ Жұлдыз: ${stars} &nbsp; 🎯 Дұрыс жауап: ${correct} &nbsp; 💡 Көмек: ${hints}</p><button class="btn gold" onclick="location.reload()">🔄 Қайта оқу</button></div></div>`;document.getElementById("prevBtn").style.display="none";document.getElementById("nextBtn").style.display="none"
+}
+function update(){document.getElementById("stars").textContent=stars;document.getElementById("correct").textContent=correct}
+function renderChapterCards(){let e=document.getElementById("chapterCards");e.innerHTML=chapters.map((x,i)=>`<div class="chCard ${i>unlocked?'locked':''}"><div style="font-size:42px">${x.scene}</div><b>${i+1}. ${x.title}</b><p>${i<crystals?'💎 Аяқталды':i<=unlocked?'📖 Ашық':'🔒 Жабық'}</p></div>`).join("")}
+function openModal(id){renderChapterCards();document.getElementById(id).classList.add("open")}function closeModal(id){document.getElementById(id).classList.remove("open")}
+renderChapterCards();update();
+</script></body></html>
